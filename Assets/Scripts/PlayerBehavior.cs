@@ -4,8 +4,9 @@ using System.Collections;
 	public class PlayerBehavior : MonoBehaviour {
 	public GameObject player;
 
+    public Rigidbody2D projectile;
 
-	float speed = 50;
+    float speed = 50;
 	bool grounded = true;
 	float maxSpeed = 1;
 	float jumpPower = 1;
@@ -17,18 +18,24 @@ using System.Collections;
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-	}
+        projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		//anim.SetFloat("speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        //anim.SetFloat("speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        if (Input.GetKeyDown("space"))
+        {
+            createProjectile();
+        }
 	}
 
 	//framerate independent update
 	void FixedUpdate() {
 
 		Movement();
-		AnimatePlayer();		
+		AnimatePlayer();
+        		
 	}
 
 	void Movement()
@@ -82,5 +89,14 @@ using System.Collections;
           transform.localScale = theScale;
     	}
     }
-	
+
+    void createProjectile()
+    {
+        Rigidbody2D clone;
+        Vector3 position = new Vector3(rb.position.x - 0.06f, rb.position.y, 0);
+        clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
+        clone.velocity = new Vector2(-0.5f, 0);
+        Destroy(clone.gameObject, 5);
+    }
+
 }

@@ -30,7 +30,7 @@ public class BasicMobBehavior : MonoBehaviour {
 		
 		if (i == 1)
 		{
-			jizz();			
+			createProjectile();			
 		}
 
 		i++;
@@ -47,7 +47,7 @@ public class BasicMobBehavior : MonoBehaviour {
 
 	}
 
-	void jizz(){
+	void createProjectile(){
 		Rigidbody2D clone; 
 		Vector3 position = new Vector3(rb.position.x - 0.06f, rb.position.y, 0);
 		clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
