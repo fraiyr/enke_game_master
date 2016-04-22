@@ -1,0 +1,105 @@
+fileFormatVersion: 2
+guid: c4a69142460b30342ac13bb5c3dec8c1
+timeCreated: 1461275449
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BatBigger_0
+    21300002: BatBigger_1
+    21300004: BatBigger_2
+    21300006: BatBigger_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: BatBigger_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 27
+        width: 14
+        height: 11
+      alignment: 9
+      pivot: {x: 0.36127785, y: 0.31665385}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: BatBigger_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 29
+        width: 14
+        height: 9
+      alignment: 9
+      pivot: {x: 0.40929714, y: 0.37550566}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: BatBigger_2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 11
+        width: 14
+        height: 10
+      alignment: 9
+      pivot: {x: 0.41996798, y: 0.4028945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: BatBigger_3
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 7
+        width: 10
+        height: 14
+      alignment: 9
+      pivot: {x: 0.5672272, y: 0.5800319}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

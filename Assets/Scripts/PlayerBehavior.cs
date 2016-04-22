@@ -65,7 +65,7 @@ using System.Collections;
     {
 
     	if (rb.velocity.x > -0.05f && rb.velocity.x < 0.05f){
-    		anim.Play("PlayerIdle");
+    		anim.Play("standing_still");
     	}
 
     	if (rb.velocity.x > 0.05f){
