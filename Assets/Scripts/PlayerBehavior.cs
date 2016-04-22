@@ -78,14 +78,14 @@ using System.Collections;
     	if (rb.velocity.x > 0.05f){
     	anim.Play("PlayerWalkCycle");
     	  Vector3 theScale = transform.localScale;
-          theScale.x = 1;
+          theScale.x = .15f;
           transform.localScale = theScale;
     	}
 
     	if (rb.velocity.x < -0.05f){
     	anim.Play("PlayerWalkCycle");
     	  Vector3 theScale = transform.localScale;
-          theScale.x = -1;
+          theScale.x = -.15f;
           transform.localScale = theScale;
     	}
     }
