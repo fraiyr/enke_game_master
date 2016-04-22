@@ -7,6 +7,7 @@ using System.Collections;
     public Rigidbody2D projectile;
 
     float speed = 50;
+    bool direction = true;
 	bool grounded = true;
 	float maxSpeed = 1;
 	float jumpPower = 1;
@@ -71,31 +72,39 @@ using System.Collections;
     void AnimatePlayer()
     {
 
-    	if (rb.velocity.x > -0.05f && rb.velocity.x < 0.05f){
-    		anim.Play("standing_still");
+    	if (Mathf.Abs(rb.velocity.x) < 0.1){
+    		anim.Play("PlayerIdle");
     	}
 
-    	if (rb.velocity.x > 0.05f){
-    	anim.Play("PlayerWalkCycle");
-    	  Vector3 theScale = transform.localScale;
-          theScale.x = 1;
-          transform.localScale = theScale;
-    	}
+        if (Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Abs(rb.velocity.y) <= 1)
+        {
+            anim.Play("PlayerWalkCycle");
+        }
 
-    	if (rb.velocity.x < -0.05f){
-    	anim.Play("PlayerWalkCycle");
-    	  Vector3 theScale = transform.localScale;
-          theScale.x = -1;
-          transform.localScale = theScale;
-    	}
+        if (rb.velocity.x < 0) {
+           
+            rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            direction = true;
+        }
+        else if (rb.velocity.x > 0)
+        {
+            rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            direction = false;
+        }
+     
+    	
     }
 
     void createProjectile()
     {
         Rigidbody2D clone;
-        Vector3 position = new Vector3(rb.position.x - 0.06f, rb.position.y, 0);
+        Vector3 position = new Vector3(rb.position.x, rb.position.y, 0);
+
+        if (!direction)
+            position.x = position.x - 0.12f;            
+
         clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
-        clone.velocity = new Vector2(-0.5f, 0);
+        clone.velocity = transform.TransformDirection(new Vector2(0.5f, 0));
         Destroy(clone.gameObject, 5);
     }
 
