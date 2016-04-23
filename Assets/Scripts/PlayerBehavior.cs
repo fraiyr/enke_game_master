@@ -7,11 +7,11 @@ public class PlayerBehavior : MonoBehaviour
 
     public Rigidbody2D projectile;
 
-    float speed = 50;
+    //float speed = 50;
     bool direction = true;
-    bool grounded = true;
+    //bool grounded = true;
     float maxSpeed = .9f;
-    float jumpPower = 1;
+    //float jumpPower = 1;
 
     public Rigidbody2D rb;
     public Animator anim;
@@ -33,6 +33,22 @@ public class PlayerBehavior : MonoBehaviour
             createProjectile();
         }
     }
+
+    //Send trigger events
+    /*void OnTriggerEnter2D(BoxCollider2D col)
+    {
+        //move background
+        if(col.gameObject.tag == "Trigger")
+        {
+            pooling.move(col.gameObject.tag);
+        }
+    }*/
+
+    //send collision events
+    /*void OnCollisionEnter(Collider col)
+    {
+        //player take damage
+    }*/
 
     //framerate independent update
     void FixedUpdate()
@@ -112,6 +128,7 @@ public class PlayerBehavior : MonoBehaviour
 
         clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
         clone.velocity = transform.TransformDirection(new Vector2(1.5f, 0));
+        //Physics2D.IgnoreCollision(clone.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         Destroy(clone.gameObject, 5);
     }
 
