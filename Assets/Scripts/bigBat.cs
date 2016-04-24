@@ -6,6 +6,7 @@ public class bigBat : MonoBehaviour {
     public Rigidbody2D projectile;
     public GameObject bat;
 
+    //Create bat health total
     public int bigBatHealth = 2;
 
     // Use this for initialization
@@ -20,15 +21,18 @@ public class bigBat : MonoBehaviour {
     
     void OnTriggerEnter2D()
     {
-        
+        //Create projectile variable
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
         Debug.Log(bigBatHealth);
 
+        //Check for projectile collision
         if (projectile)
         {
+            //Decrememnt health
             bigBatHealth--;
             Debug.Log(bigBatHealth);
-            if (bigBatHealth < 2)
+            //Kill bat when health is less than 1 (0)
+            if (bigBatHealth < 1)
             {
                 DestroyObject(bat);
                 Debug.Log(bigBatHealth);
