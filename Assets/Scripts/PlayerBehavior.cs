@@ -112,7 +112,6 @@ public class PlayerBehavior : MonoBehaviour
 
         clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
         clone.velocity = transform.TransformDirection(new Vector2(1.5f, 0));
-        Destroy(clone.gameObject, 5);
+        Destroy(clone.gameObject, 2.0f);
     }
-
 }
