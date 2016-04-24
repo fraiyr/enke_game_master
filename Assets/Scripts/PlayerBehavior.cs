@@ -34,22 +34,6 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    //Send trigger events
-    /*void OnTriggerEnter2D(BoxCollider2D col)
-    {
-        //move background
-        if(col.gameObject.tag == "Trigger")
-        {
-            pooling.move(col.gameObject.tag);
-        }
-    }*/
-
-    //send collision events
-    /*void OnCollisionEnter(Collider col)
-    {
-        //player take damage
-    }*/
-
     //framerate independent update
     void FixedUpdate()
     {
@@ -128,7 +112,6 @@ public class PlayerBehavior : MonoBehaviour
 
         clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
         clone.velocity = transform.TransformDirection(new Vector2(1.5f, 0));
-        //Physics2D.IgnoreCollision(clone.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         Destroy(clone.gameObject, 5);
     }
 
