@@ -9,8 +9,8 @@ public class PlayerBehavior : MonoBehaviour
     bool direction = true;
     float maxSpeed = .9f;
 
-    public Rigidbody2D rb;
-    public Animator anim;
+    private Rigidbody2D rb;
+    private Animator anim;
 
     // Use this for initialization
    void Start()

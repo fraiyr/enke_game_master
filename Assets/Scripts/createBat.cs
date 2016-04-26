@@ -20,7 +20,6 @@ public class createBat : MonoBehaviour {
     //Function to create npc's
     public static void cloneBat(float xLoc)
     {
-        Debug.Log("I'm a bat!");
         batObj = GameObject.Find("BatBigger").GetComponent<Rigidbody2D>();
         //Look for the trigger to create npc's
         sceneTrigger = GameObject.Find("Trigger").GetComponent<BoxCollider2D>();
