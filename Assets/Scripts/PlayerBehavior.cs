@@ -17,7 +17,7 @@ public class PlayerBehavior : MonoBehaviour
     public Animator anim;
 
     // Use this for initialization
-    void Start()
+   void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();

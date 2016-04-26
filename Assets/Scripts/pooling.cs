@@ -8,9 +8,16 @@ public class pooling : MonoBehaviour {
     public Rigidbody2D batObj;
     public BoxCollider2D sceneTrigger;
 
+    private int backgroundPop = 0;
+    private int enemyPop = 0;
+    private float playerLoc = GameObject.FindGameObjectWithTag("Hero").transform.position.x;
+
     void Start()
     {
-        createBat(1f);
+        
+        Debug.Log("Begin start");
+        createBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
+        Debug.Log("End start");
     }
     
     //Trigger happens when player exits collider box
@@ -25,21 +32,20 @@ public class pooling : MonoBehaviour {
             //This determines which way to move the level pieces so that they don't get split up
             if (player.velocity.x > 0 && (otherBack.transform.position.x < player.transform.position.x))
             {
-                Debug.Log("Character entered trigger");
-
-                /*System.Random random = new System.Random();
-                int spawnBats = random.Next(0, 2);*/
-                
                 //Move the level section the character isn't in and create npc's
                 otherBack.transform.Translate(17.266f, 0, 0);
-                createBat(8.266f);
+                backgroundPop++;
+                if (enemyPop < backgroundPop)
+                {
+                    enemyPop++;
+                    createBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
+                }
 
             }
             else if(player.velocity.x < 0 && (otherBack.transform.position.x > player.transform.position.x))
             {
-                Debug.Log("Character entered trigger");
-
                 otherBack.transform.Translate(-17.266f, 0, 0);
+                backgroundPop--;
             }
         }
     }
