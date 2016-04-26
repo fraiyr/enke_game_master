@@ -29,7 +29,7 @@ public class bigBat : MonoBehaviour {
         {
             //Decrememnt health
             bigBatHealth--;
-            //Kill bat when health is less than 1 (0)
+            //Kill bat when health is less than 1
             if (bigBatHealth < 1)
             {
                 DestroyObject(bat);

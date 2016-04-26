@@ -3,15 +3,11 @@ using System.Collections;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public GameObject player;
-
     public Rigidbody2D projectile;
-
-    //float speed = 50;
+    private float playerLoc;
+    
     bool direction = true;
-    //bool grounded = true;
     float maxSpeed = .9f;
-    //float jumpPower = 1;
 
     public Rigidbody2D rb;
     public Animator anim;
@@ -22,12 +18,15 @@ public class PlayerBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
-    }
+        playerLoc = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+
+        //Use the rng class to to populate a random location to spawn an enemy based on player location
+        createBat.cloneBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
+     }
 
     // Update is called once per frame
     void Update()
     {
-        //anim.SetFloat("speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         if (Input.GetKeyDown("space"))
         {
             createProjectile();
@@ -47,14 +46,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         //moves you left and right with A and D
         float h = Input.GetAxis("Horizontal");
-        //rb.AddForce(Vector2.right * h * speed);
         rb.velocity = new Vector2(3 * h, rb.velocity.y);
 
         if (rb.velocity.y == 0)
         {
-            //float v = Input.GetAxis("Vertical");
-            ///print(v);
-            //rb.velocity = new Vector2(rb.velocity.x, 50 * v);
             if (Input.GetKey("w"))
             {
                 rb.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
