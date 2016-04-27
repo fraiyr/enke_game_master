@@ -9,7 +9,7 @@ public class rng : MonoBehaviour {
         System.Random rnd = new System.Random();
 
         float number;
-        number = rnd.Next(rndLow, rndHigh);
+        number = (rnd.Next(rndLow, rndHigh) + 2);
 
         return number;
     }
