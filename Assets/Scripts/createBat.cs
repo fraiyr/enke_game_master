@@ -26,8 +26,8 @@ public class createBat : MonoBehaviour {
         Rigidbody2D batClone;
 
         //create new bat objects relative to the trigger location
-        Vector3 position = new Vector3((sceneTrigger.transform.position.x + xLoc), (sceneTrigger.transform.position.y + .1f), 0);
-
+        Vector3 position = new Vector3((xLoc), (sceneTrigger.transform.position.y + .1f), 0);
+        //sceneTrigger.transform.position.x +
         batClone = (Rigidbody2D)Instantiate(batObj, position, batObj.transform.rotation);
         batClone.velocity = batObj.transform.TransformDirection(new Vector2(1.5f, 0));
 
