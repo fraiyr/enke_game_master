@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class bigBat : MonoBehaviour {
-
-    public Rigidbody2D projectile;
-    public int bigBatHealth;
-    public GameObject bat;
+public class BatBehavior : MonoBehaviour {
 
     public Rigidbody2D bat2d;
     public Animator anim;
@@ -19,13 +16,11 @@ public class bigBat : MonoBehaviour {
     float count;
     float batshootspeed;
     float distanceaboveplayer;
-    bool direction;    
+    bool direction;
+    public Rigidbody2D projectile;
 
     // Use this for initialization
     void Start () {
-        //Create bat health total
-        bigBatHealth = 2;
-
         anim = GetComponent<Animator>();
         bat2d = GetComponent<Rigidbody2D>();
         player1 = GameObject.Find("Hero").GetComponent<Rigidbody2D>();
@@ -34,15 +29,16 @@ public class bigBat : MonoBehaviour {
         flyup = new Vector2(0, 3);
         height = player1.position.y;
         leftright = player1.position.x;
-        maxspeed = 3;
+        maxspeed = 5;
         batshootspeed = 2;
-        distanceaboveplayer = .1f;
+        distanceaboveplayer = .4f;
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
-	}
+    }
+
 	
 	// Update is called once per frame
 	void Update () {
-	if (bat2d.position.x < player1.position.x - .4)
+        if (bat2d.position.x < player1.position.x - .4)
         {
             bat2d.AddForce(flyright);
         }
@@ -61,7 +57,7 @@ public class bigBat : MonoBehaviour {
 
         if (bat2d.position.y < player1.position.y + distanceaboveplayer)
         {
-            bat2d.velocity = new Vector2(bat2d.velocity.x, 3.5f);
+            bat2d.velocity = new Vector2(bat2d.velocity.x, 2);
         }
 
         if (bat2d.velocity.x >= 0)
@@ -87,26 +83,7 @@ public class bigBat : MonoBehaviour {
             //clone.velocity = transform.TransformDirection(new Vector2(12, 0));
 
             Destroy(clone.gameObject, 1);
-        }       
-	}
-    
-    void OnTriggerEnter2D()
-    {
-        //Create projectile variable
-        projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
-
-        //Check for projectile collision
-        if (projectile)
-        {
-            //Decrememnt health
-            bigBatHealth--;
-            //Kill bat when health is less than 1
-            if (bigBatHealth < 1)
-            {
-                DestroyObject(bat);
-            }
         }
 
-        
     }
 }
