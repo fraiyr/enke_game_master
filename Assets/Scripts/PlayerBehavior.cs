@@ -5,6 +5,9 @@ public class PlayerBehavior : MonoBehaviour
 {
     public Rigidbody2D projectile;
     private float playerLoc;
+    public int playerHealth;
+    public int maxPlayerHealth;
+    public GameObject player;
     
     bool direction = true;
     float maxSpeed = .9f;
@@ -15,6 +18,8 @@ public class PlayerBehavior : MonoBehaviour
     // Use this for initialization
    void Start()
     {
+        playerHealth = 5;
+        maxPlayerHealth = 5;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
@@ -95,6 +100,28 @@ public class PlayerBehavior : MonoBehaviour
         }
 
 
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy" && playerHealth > 0)
+        {
+            playerHealth--;
+        }
+        else if (col.gameObject.tag == "Coffee")
+        {
+            if (playerHealth < maxPlayerHealth)
+            {
+                playerHealth++;
+            }
+        }
+
+        if (playerHealth <= 0)
+        {
+            DestroyObject(player);
+        }
+
+        rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
     }
 
     void createProjectile()

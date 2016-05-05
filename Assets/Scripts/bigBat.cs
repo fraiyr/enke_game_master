@@ -29,12 +29,12 @@ public class bigBat : MonoBehaviour {
         anim = GetComponent<Animator>();
         bat2d = GetComponent<Rigidbody2D>();
         player1 = GameObject.Find("Hero").GetComponent<Rigidbody2D>();
-        flyright = new Vector2(8, 0);
-        flyleft = new Vector2(-8, 0);
+        flyright = new Vector2(1f, 0);
+        flyleft = new Vector2(-1f, 0);
         flyup = new Vector2(0, 3);
         height = player1.position.y;
         leftright = player1.position.x;
-        maxspeed = 3;
+        maxspeed = 1;
         batshootspeed = 2;
         distanceaboveplayer = .1f;
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
@@ -42,7 +42,7 @@ public class bigBat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	if (bat2d.position.x < player1.position.x - .4)
+	    if (bat2d.position.x < player1.position.x - .4)
         {
             bat2d.AddForce(flyright);
         }
@@ -59,9 +59,9 @@ public class bigBat : MonoBehaviour {
             bat2d.velocity = new Vector2(-maxspeed, bat2d.velocity.y);
 
 
-        if (bat2d.position.y < player1.position.y + distanceaboveplayer)
+        if (bat2d.position.y < distanceaboveplayer)
         {
-            bat2d.velocity = new Vector2(bat2d.velocity.x, 3.5f);
+            bat2d.velocity = new Vector2(bat2d.velocity.x, 2.0f);
         }
 
         if (bat2d.velocity.x >= 0)
@@ -75,7 +75,7 @@ public class bigBat : MonoBehaviour {
             direction = false;
         }
 
-        count -= Time.deltaTime;
+        /*count -= Time.deltaTime;
         if (count <= 0)
         {
             Rigidbody2D clone;
@@ -87,16 +87,16 @@ public class bigBat : MonoBehaviour {
             //clone.velocity = transform.TransformDirection(new Vector2(12, 0));
 
             Destroy(clone.gameObject, 1);
-        }       
+        } */      
 	}
     
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D col)
     {
         //Create projectile variable
-        projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
+        //projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
 
         //Check for projectile collision
-        if (projectile)
+        if (col.gameObject.tag == "Projectile")
         {
             //Decrememnt health
             bigBatHealth--;
