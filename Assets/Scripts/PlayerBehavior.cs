@@ -5,10 +5,12 @@ public class PlayerBehavior : MonoBehaviour
 {
     public Rigidbody2D projectile;
     private float playerLoc;
-    public int playerHealth;
+    public static int playerHealth;
     public int maxPlayerHealth;
+    public static int points;
     public GameObject player;
-    
+    public float count = 15f;
+
     bool direction = true;
     float maxSpeed = .9f;
 
@@ -20,6 +22,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         playerHealth = 5;
         maxPlayerHealth = 5;
+        points = 0;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
@@ -27,14 +30,24 @@ public class PlayerBehavior : MonoBehaviour
 
         //Use the rng class to to populate a random location to spawn an enemy based on player location
         createBat.cloneBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
-     }
+        createPC.clonePC(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
+        createCoffee.cloneCoffee(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc * .1f)));
+        createCoffee.cloneCoffee(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc * .6f), playerLocation.playerMaxLoc(playerLoc)));
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        count--;
+        if (Input.GetKeyDown("space") && count <= 0.0f)
         {
             createProjectile();
+            count = 15f;
+            //anim.Play("PlayerThrow");
+        }
+        if (points < (int)rb.position.x)
+        {
+            points = (int)rb.position.x;
         }
     }
 
@@ -45,6 +58,19 @@ public class PlayerBehavior : MonoBehaviour
         Movement();
         AnimatePlayer();
 
+    }
+
+    void createProjectile()
+    {
+        Rigidbody2D clone;
+        Vector3 position = new Vector3(rb.position.x, rb.position.y, 0);
+
+        if (!direction)
+            position.x = position.x - 0.12f;
+
+        clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
+        clone.velocity = transform.TransformDirection(new Vector2(1.5f, 0));
+        Destroy(clone.gameObject, 2.0f);
     }
 
     void Movement()
@@ -77,14 +103,19 @@ public class PlayerBehavior : MonoBehaviour
     void AnimatePlayer()
     {
 
-        if (Mathf.Abs(rb.velocity.x) < 0.1)
+        if (Mathf.Abs(rb.velocity.x) < 0.1 && Mathf.Abs(rb.velocity.y) == 0)
         {
             anim.Play("PlayerIdle");
         }
 
-        if (Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Abs(rb.velocity.y) <= 1)
+        if (Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Abs(rb.velocity.y) == 0)
         {
             anim.Play("PlayerWalkCycle");
+        }
+
+        if (Mathf.Abs(rb.velocity.y) > .01f)
+        {
+            anim.Play("PlayerJump");
         }
 
         if (rb.velocity.x < 0)
@@ -108,11 +139,18 @@ public class PlayerBehavior : MonoBehaviour
         {
             playerHealth--;
         }
+        else if (col.gameObject.tag == "EnemyProjectile" && playerHealth > 0)
+        {
+            Destroy(col.gameObject);
+            playerHealth--;
+        }
         else if (col.gameObject.tag == "Coffee")
         {
+            DestroyObject(col.gameObject);
             if (playerHealth < maxPlayerHealth)
             {
                 playerHealth++;
+                pointsInc(1);
             }
         }
 
@@ -123,17 +161,19 @@ public class PlayerBehavior : MonoBehaviour
 
         rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
     }
-
-    void createProjectile()
+ 
+    public static int GetHealth()
     {
-        Rigidbody2D clone;
-        Vector3 position = new Vector3(rb.position.x, rb.position.y, 0);
+        return playerHealth;
+    }
+    
+    public static int GetPoints()
+    {
+        return points;
+    }
 
-        if (!direction)
-            position.x = position.x - 0.12f;
-
-        clone = (Rigidbody2D)Instantiate(projectile, position, transform.rotation);
-        clone.velocity = transform.TransformDirection(new Vector2(1.5f, 0));
-        Destroy(clone.gameObject, 2.0f);
+    public static void pointsInc(int num)
+    {
+        points += num;
     }
 }

@@ -10,7 +10,7 @@ public class pooling : MonoBehaviour {
     private int backgroundPop = 0;
     private int enemyPop = 0;
     private float playerLoc;
-
+    
     void Start()
     {
 
@@ -40,8 +40,20 @@ public class pooling : MonoBehaviour {
                 if (enemyPop < backgroundPop)
                 {
                     enemyPop++;
+                    cameraFollow.difficultInc(1);
                     //Use the rng class to to populate a random location that is based on player location to spawn an enemy.
-                    createBat.cloneBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc)));
+                    createBat.cloneBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc), playerLocation.playerMaxLoc(playerLoc + 1)));
+                    createPC.clonePC(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc - 1), playerLocation.playerMaxLoc(playerLoc)));
+                    createBat.cloneBat(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc + 1), playerLocation.playerMaxLoc(playerLoc + 2)));
+                    createPC.clonePC(rng.getRandNum(playerLocation.currentPlayerLoc(playerLoc + 1), playerLocation.playerMaxLoc(playerLoc)));
+                    if (rng.getRandNum(0, 2) < 1)
+                    {
+                        createCoffee.cloneCoffee(rng.getRandNum((playerLocation.currentPlayerLoc(playerLoc) / 2), (playerLocation.playerMaxLoc(playerLoc) / 2)));
+                    }
+                    else
+                    {
+                        createCoffee.cloneCoffee(rng.getRandNum((playerLocation.currentPlayerLoc(playerLoc) + 2), (playerLocation.playerMaxLoc(playerLoc) + 2)));
+                    }
                 }
 
             }

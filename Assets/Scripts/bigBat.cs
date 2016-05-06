@@ -19,7 +19,8 @@ public class bigBat : MonoBehaviour {
     float count;
     float batshootspeed;
     float distanceaboveplayer;
-    bool direction;    
+    bool direction;
+
 
     // Use this for initialization
     void Start () {
@@ -41,22 +42,27 @@ public class bigBat : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        int difficulty = cameraFollow.getDifficult();
+        float difficultyf = (((float)difficulty * .1f) + 1);
+
+
 	    if (bat2d.position.x < player1.position.x - .4)
         {
-            bat2d.AddForce(flyright);
+            bat2d.AddForce(flyright * difficultyf);
         }
 
         else if (bat2d.position.x > player1.position.x + .4)
         {
-            bat2d.AddForce(flyleft);
+            bat2d.AddForce(flyleft * difficultyf);
         }
 
-        if (bat2d.velocity.x > maxspeed)
-            bat2d.velocity = new Vector2(maxspeed, bat2d.velocity.y);
+        if (bat2d.velocity.x > (maxspeed * difficultyf))
+            bat2d.velocity = new Vector2((maxspeed * difficultyf), bat2d.velocity.y);
 
-        if (bat2d.velocity.x < -maxspeed)
-            bat2d.velocity = new Vector2(-maxspeed, bat2d.velocity.y);
+        if (bat2d.velocity.x < -(maxspeed * difficultyf))
+            bat2d.velocity = new Vector2((-maxspeed * difficultyf), bat2d.velocity.y);
 
 
         if (bat2d.position.y < distanceaboveplayer)
@@ -87,7 +93,7 @@ public class bigBat : MonoBehaviour {
             //clone.velocity = transform.TransformDirection(new Vector2(12, 0));
 
             Destroy(clone.gameObject, 1);
-        } */      
+        } */  
 	}
     
     void OnTriggerEnter2D(Collider2D col)
@@ -96,7 +102,7 @@ public class bigBat : MonoBehaviour {
         //projectile = GameObject.Find("Projectile").GetComponent<Rigidbody2D>();
 
         //Check for projectile collision
-        if (col.gameObject.tag == "Projectile")
+        if (col.gameObject.tag == "FriendlyProjectile")
         {
             //Decrememnt health
             bigBatHealth--;
@@ -104,6 +110,7 @@ public class bigBat : MonoBehaviour {
             if (bigBatHealth < 1)
             {
                 DestroyObject(bat);
+                PlayerBehavior.pointsInc(1);
             }
         }
 
